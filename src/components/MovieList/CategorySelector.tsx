@@ -1,11 +1,18 @@
 import React from 'react';
 import styles from './CategorySelector.module.css';
 
+import {
+  NOW_PLAYING_LABEL,
+  POPULAR_LABEL,
+  TOP_RATED_LABEL,
+  UPCOMING_LABEL
+} from '../../constants/textKey';
+
 const categories = [
-  { label: 'Now Playing', value: 'now_playing' },
-  { label: 'Popular', value: 'popular' },
-  { label: 'Top Rated', value: 'top_rated' },
-  { label: 'Upcoming', value: 'upcoming' },
+  { label: NOW_PLAYING_LABEL, value: 'now_playing' },
+  { label: POPULAR_LABEL, value: 'popular' },
+  { label: TOP_RATED_LABEL, value: 'top_rated' },
+  { label: UPCOMING_LABEL, value: 'upcoming' },
 ];
 
 type Props = {

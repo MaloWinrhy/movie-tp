@@ -2,7 +2,9 @@
 import { useEffect, useState } from 'react';
 import type { Actor } from '../../types/actor';
 import styles from './ActorList.module.css';
-import { TMDB_MOVIE_CREDITS } from '../../constants/links';
+import { TMDB_POSTER_W500 } from '../../constants/links';
+import { LOADING_ACTORS, ERROR, NO_ACTOR_FOUND } from '../../constants/textKey';
+import { fetchMovieCredits } from '../../services/movieApi';
 
 interface Props {
   movieId: string | number;
@@ -15,8 +17,7 @@ const ActorList = ({ movieId }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(TMDB_MOVIE_CREDITS(movieId))
-      .then(res => res.json())
+    fetchMovieCredits(Number(movieId))
       .then(data => {
         setActors(data.cast.slice(0, 10));
         setError(null);
@@ -28,16 +29,16 @@ const ActorList = ({ movieId }: Props) => {
       .finally(() => setLoading(false));
   }, [movieId]);
 
-  if (loading) return <div>Chargement des acteurs...</div>;
-  if (error) return <div>Erreur : {error}</div>;
-  if (!actors.length) return <div>Aucun acteur trouvé.</div>;
+  if (loading) return <div>{LOADING_ACTORS}</div>;
+  if (error) return <div>{ERROR} {error}</div>;
+  if (!actors.length) return <div>{NO_ACTOR_FOUND}</div>;
 
   return (
     <div className={styles.actorsContainer}>
       {actors.map((actor) => (
         <div key={actor.id} className={styles.actorCard}>
           <img
-            src={actor.profile_path ? `https://image.tmdb.org/t/p/w185${actor.profile_path}` : '/no-profile.png'}
+            src={actor.profile_path ? TMDB_POSTER_W500(actor.profile_path) : '/no-profile.png'}
             alt={actor.name}
             className={styles.actorImg}
           />

@@ -3,15 +3,23 @@ import { useWishlist } from '../../context/WishlistContext';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router';
 import { Info, Plus, ThumbsUp, ThumbsDown, Check } from 'lucide-react';
+import ActionButton from './ActionButton';
 
 import styles from './MovieCard.module.css';
 import type { Movie } from '../../types/movie';
 import {
-  TMDB_POSTER_BASE,
-  NO_POSTER_IMAGE,
   ROUTE_MOVIE_DETAIL,
+} from '../../constants/routes';
+import {
+  NO_POSTER_IMAGE,
   NOTE_LABEL,
-} from '../../constants/links';
+  DETAILS_LABEL,
+  ADD_WISHLIST,
+  REMOVE_WISHLIST,
+  LIKE,
+  DISLIKE
+} from '../../constants/textKey';
+import { TMDB_POSTER_BASE } from '../../constants/links';
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -72,39 +80,39 @@ const MovieCard = ({ movie }: { movie: Movie }) => {
           />
           <div className={styles.overlayContent}>
             <div className={styles.actionsRow}>
-              <Link
+              <ActionButton
+                isLink
                 to={ROUTE_MOVIE_DETAIL(movie.id)}
-                className={styles.actionBtn}
-                title="Détails"
-                aria-label="Voir les détails"
-              >
-                <Info />
-              </Link>
+                icon={<Info />}
+                title={DETAILS_LABEL}
+                ariaLabel={DETAILS_LABEL}
+              />
               {wishlist.some((m) => m.id === movie.id) ? (
-                <button
-                  className={`${styles.actionBtn} ${styles.inWishlist}`}
-                  title="Retirer de la wishlist"
-                  aria-label="Retirer de la wishlist"
+                <ActionButton
+                  icon={<Check color="#e50914" size={32} />}
+                  title={REMOVE_WISHLIST}
+                  ariaLabel={REMOVE_WISHLIST}
                   onClick={() => removeFromWishlist(movie.id)}
-                >
-                  <Check color="#e50914" size={32} />
-                </button>
+                  className={styles.inWishlist}
+                />
               ) : (
-                <button
-                  className={styles.actionBtn}
-                  title="Ajouter à la wishlist"
-                  aria-label="Ajouter à la wishlist"
+                <ActionButton
+                  icon={<Plus />}
+                  title={ADD_WISHLIST}
+                  ariaLabel={ADD_WISHLIST}
                   onClick={() => addToWishlist(movie)}
-                >
-                  <Plus />
-                </button>
+                />
               )}
-              <button className={styles.actionBtn} title="J'aime">
-                <ThumbsUp />
-              </button>
-              <button className={styles.actionBtn} title="Je n'aime pas">
-                <ThumbsDown />
-              </button>
+              <ActionButton
+                icon={<ThumbsUp />}
+                title={LIKE}
+                ariaLabel={LIKE}
+              />
+              <ActionButton
+                icon={<ThumbsDown />}
+                title={DISLIKE}
+                ariaLabel={DISLIKE}
+              />
             </div>
             <div className={styles.info}>
               <h3>{movie.title}</h3>

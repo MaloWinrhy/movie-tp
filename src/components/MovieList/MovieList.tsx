@@ -1,13 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import MovieCard from '../MovieCard/MovieCard';
 import styles from './MovieList.module.css';
-import { TMDB_MOVIES_BY_CATEGORY } from '../../constants/links';
+import { fetchMovies } from '../../services/movieApi';
+import {
+  NOW_PLAYING_LABEL,
+  POPULAR_LABEL,
+  TOP_RATED_LABEL,
+  UPCOMING_LABEL,
+  NO_MOVIE_FOUND,
+  LOADING,
+  ERROR
+} from '../../constants/textKey';
 
 const categories = [
-  { label: 'Now Playing', value: 'now_playing' },
-  { label: 'Popular', value: 'popular' },
-  { label: 'Top Rated', value: 'top_rated' },
-  { label: 'Upcoming', value: 'upcoming' },
+  { label: NOW_PLAYING_LABEL, value: 'now_playing' },
+  { label: POPULAR_LABEL, value: 'popular' },
+  { label: TOP_RATED_LABEL, value: 'top_rated' },
+  { label: UPCOMING_LABEL, value: 'upcoming' },
 ];
 
 import type { Movie } from '../../types/movie';
@@ -25,7 +34,6 @@ const MovieList = ({ search }: MovieListProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Création d’un dictionnaire de refs par catégorie
   const scrollRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   const handleScroll = (key: string, direction: 'left' | 'right') => {
@@ -40,8 +48,7 @@ const MovieList = ({ search }: MovieListProps) => {
     setLoading(true);
     Promise.all(
       categories.map(cat =>
-        fetch(TMDB_MOVIES_BY_CATEGORY(cat.value))
-          .then(res => res.json())
+        fetchMovies(cat.value)
           .then(data => ({ [cat.value]: data.results || [] }))
       )
     )
@@ -58,8 +65,8 @@ const MovieList = ({ search }: MovieListProps) => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div>Loading</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (loading) return <div>{LOADING}</div>;
+  if (error) return <div>{ERROR} {error}</div>;
 
   return (
     <div>
@@ -78,7 +85,7 @@ const MovieList = ({ search }: MovieListProps) => {
             </div>
 
             {movies.length === 0 ? (
-              <p style={{ color: '#fff', marginLeft: '1rem' }}>Aucun film trouvé.</p>
+              <p style={{ color: '#fff', marginLeft: '1rem' }}>{NO_MOVIE_FOUND}</p>
             ) : (
               <div className={styles.scrollWrap}>
                 <button

@@ -1,8 +1,14 @@
 
+export const TMDB_YOUTUBE_EMBED = (key: string) =>
+  `https://www.youtube.com/embed/${key}?autoplay=1&mute=1&controls=0&loop=1&playlist=${key}`;
+
+export const TMDB_BACKDROP_ORIGINAL = (path: string) =>
+  `https://image.tmdb.org/t/p/original${path}`;
+
+export const TMDB_POSTER_W500 = (path: string) =>
+  `https://image.tmdb.org/t/p/w500${path}`;
+
 export const TMDB_POSTER_BASE = 'https://image.tmdb.org/t/p/w200';
-export const NO_POSTER_IMAGE = '/no-poster.png';
-export const NOTE_LABEL = 'Note :';
-export const DETAILS_LABEL = 'Voir les détails';
 
 
 const API_BASE = 'https://api.themoviedb.org/3';
@@ -23,6 +29,5 @@ export const TMDB_MOVIES_BY_CATEGORY = (category: string) =>
 export const TMDB_SEARCH_MOVIE = (query: string) =>
   `${API_BASE}/search/movie?api_key=${getApiKey()}&query=${encodeURIComponent(query)}`;
 
-export const ROUTE_HOME = '/';
-export const ROUTE_MOVIE_DETAIL = (id: string | number) => `/movie/${id}`;
-export const ROUTE_WISHLIST = '/wishlist';
+
+

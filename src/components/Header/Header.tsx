@@ -1,17 +1,22 @@
 
+
 import styles from './Header.module.css';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useState } from 'react';
-import { ROUTE_HOME, ROUTE_WISHLIST } from '../../constants/links';
+import { ROUTE_HOME } from '../../constants/routes';
+import NavBar from './NavBar';
+import SearchBar from './SearchBar';
+
+
 
 const Header = ({ onSearch }: { onSearch?: (q: string) => void }) => {
   const [search, setSearch] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-    if (onSearch) onSearch(e.target.value);
+  const handleInput = (value: string) => {
+    setSearch(value);
+    if (onSearch) onSearch(value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,19 +27,8 @@ const Header = ({ onSearch }: { onSearch?: (q: string) => void }) => {
 
   return (
     <header className={styles.header}>
-      <nav className={styles.nav}>
-        <Link to={ROUTE_HOME} className={styles.logo}>Accueil</Link>
-        <Link to={ROUTE_WISHLIST} className={styles.link}>Wishlist</Link>
-      </nav>
-      <form className={styles.searchBar} onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Rechercher un film..."
-          value={search}
-          onChange={handleInput}
-        />
-        <button type="submit">🔍</button>
-      </form>
+      <NavBar />
+      <SearchBar value={search} onChange={handleInput} onSubmit={handleSubmit} />
     </header>
   );
 };

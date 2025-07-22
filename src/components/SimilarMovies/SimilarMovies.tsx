@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import type { Movie } from '../../types/movie';
 import styles from './SimilarMovies.module.css';
-import { TMDB_MOVIE_SIMILAR } from '../../constants/links';
+import { TMDB_POSTER_W500 } from '../../constants/links';
+import MovieCard from '../MovieCard/MovieCard';
+import { fetchSimilarMovies } from '../../services/movieApi';
+import { LOADING_SIMILAR, ERROR, NO_SIMILAR_FOUND } from '../../constants/textKey';
 
 interface Props {
   movieId: string | number;
@@ -14,8 +17,7 @@ const SimilarMovies = ({ movieId }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(TMDB_MOVIE_SIMILAR(movieId))
-      .then(res => res.json())
+    fetchSimilarMovies(Number(movieId))
       .then(data => {
         setMovies(data.results || []);
         setError(null);
@@ -27,21 +29,14 @@ const SimilarMovies = ({ movieId }: Props) => {
       .finally(() => setLoading(false));
   }, [movieId]);
 
-  if (loading) return <div>Loading similar movies...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!movies.length) return <div>No similar movies found.</div>;
+  if (loading) return <div>{LOADING_SIMILAR}</div>;
+  if (error) return <div>{ERROR} {error}</div>;
+  if (!movies.length) return <div>{NO_SIMILAR_FOUND}</div>;
 
   return (
     <div className={styles.similarContainer}>
       {movies.map((movie) => (
-        <div key={movie.id} className={styles.similarCard}>
-          <img
-            src={movie.poster_path ? `https://image.tmdb.org/t/p/w185${movie.poster_path}` : '/no-poster.png'}
-            alt={movie.title}
-            className={styles.similarImg}
-          />
-          <span className={styles.similarTitle}>{movie.title}</span>
-        </div>
+        <MovieCard key={movie.id} movie={movie} />
       ))}
     </div>
   );

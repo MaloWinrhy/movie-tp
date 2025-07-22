@@ -7,21 +7,28 @@ import MovieDetail from './components/MovieDetail/MovieDetail';
 import MovieGrid from './components/MovieGrid/MovieGrid';
 import Wishlist from './components/Wishlist/Wishlist';
 import { useEffect, useState } from 'react';
-import { TMDB_SEARCH_MOVIE } from './constants/links';
+import { searchMovies } from './services/movieApi';
 
 
 function App() {
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState(null);
 
   useEffect(() => {
-    if (search && search.trim() !== '') {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  useEffect(() => {
+    if (debouncedSearch && debouncedSearch.trim() !== '') {
       setSearchLoading(true);
       setSearchError(null);
-      fetch(TMDB_SEARCH_MOVIE(search.trim()))
-        .then(res => res.json())
+      searchMovies(debouncedSearch.trim())
         .then(data => setSearchResults(data.results || []))
         .catch(err => setSearchError(err.message))
         .finally(() => setSearchLoading(false));
@@ -29,7 +36,8 @@ function App() {
       setSearchResults([]);
       setSearchError(null);
     }
-  }, [search]);
+  }, [debouncedSearch]);
+
 
 return (
   <>
