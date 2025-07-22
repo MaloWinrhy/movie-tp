@@ -1,6 +1,6 @@
 
 import styles from './MovieCard.module.css';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router';
 import type { Movie } from '../../types/movie';
 
 const MovieCard = ({ movie }: { movie: Movie }) => {
