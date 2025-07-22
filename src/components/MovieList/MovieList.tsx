@@ -4,6 +4,7 @@ import { fetchMovies } from '../../services/movieApi';
 import MovieCard from '../MovieCard/MovieCard';
 import CategorySelector from './CategorySelector';
 import type { Movie } from '../../types/movie';
+import styles from './MovieList.module.css';
 
 const MovieList = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
@@ -34,11 +35,11 @@ const MovieList = () => {
                 selected={selectedCategory}
                 onChange={setSelectedCategory}
             />
-            <div className="movie-list">
+            <div className={styles.movieList}>
                 {movies.length === 0 ? (
                     <p>Aucun film trouvé.</p>
                 ) : (
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                    <div className={styles.cardsContainer}>
                         {movies.map((movie) => (
                             <MovieCard key={movie.id} movie={movie} />
                         ))}
