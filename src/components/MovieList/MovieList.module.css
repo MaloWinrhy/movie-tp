@@ -1,8 +1,75 @@
 .movieList {
+  width: 100%;
+  padding: 1rem 0;
+  overflow-x: hidden;
+}
+
+.movieListTitleWrap {
+  padding: 0 2vw;
+  margin-bottom: 0.5rem;
 }
 
 .cardsContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100vw;
+  padding: 1rem 2vw 1.5rem 2vw;
+  gap: 1.2rem;
+  box-sizing: border-box;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--netflix-red, #e50914) #222;
+}
+
+.cardsContainer::-webkit-scrollbar {
+  height: 8px;
+}
+.cardsContainer::-webkit-scrollbar-track {
+  background: #222;
+}
+.cardsContainer::-webkit-scrollbar-thumb {
+  background: var(--netflix-red, #e50914);
+  border-radius: 4px;
+}
+
+.scrollWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.scrollBtn {
+  background: rgba(20,20,20,0.7);
+  border: none;
+  color: #fff;
+  font-size: 2.2rem;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  z-index: 2;
+  transition: background 0.2s, color 0.2s;
+}
+
+.scrollBtn:hover {
+  background: var(--netflix-red, #e50914);
+  color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .scrollBtn {
+    font-size: 1.8rem;
+    width: 38px;
+    height: 38px;
+  }
+
+  .movieListTitleWrap h2 {
+    font-size: 1.1rem;
+  }
 }

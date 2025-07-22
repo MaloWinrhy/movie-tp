@@ -1,28 +1,135 @@
+/* Style pour le bouton check quand le film est dans la wishlist */
+.inWishlist {
+  background: #eee !important;
+  color: #e50914 !important;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #e5091433;
+  transition: background 0.2s;
+}
 .card {
-  border: 1px solid #ccc;
+  background: transparent;
   border-radius: 8px;
-  padding: 1rem;
-  width: 200px;
+  box-shadow: none;
+  padding: 0;
+  width: 180px;
+  min-width: 180px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  align-items: flex-start;
+  position: relative;
+  transition: transform 0.2s;
+  overflow: visible;
 }
+
 .poster {
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
+  border-radius: 6px;
   width: 100%;
-  height: auto;
+  height: 270px;
+  object-fit: cover;
+  background: #111;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  z-index: 1;
 }
-.detailsBtn {
-  margin-top: 0.5rem;
-  padding: 0.4rem 1rem;
-  background: #007bff;
-  color: #fff;
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 1000;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+  background: none;
+}
+
+.overlayPoster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  z-index: 1;
+}
+
+.overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.95) 100%);
+  z-index: 2;
+}
+
+.overlayContent {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.actionsRow {
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
+  margin: 1.2rem 0 0 1.2rem;
+}
+
+.actionBtn {
+  background: rgba(40, 40, 40, 0.7);
   border: none;
-  border-radius: 4px;
-  text-decoration: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   cursor: pointer;
-  font-size: 1rem;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.actionBtn:hover {
+  background: var(--netflix-red);
+  color: #fff;
+}
+
+
+.actionBtn {
+  width: 68px;
+  height: 68px;
+  stroke: currentColor;
+}
+
+.info {
+  padding: 0.7rem 1.2rem 1.2rem 1.2rem;
+}
+
+.info h3 {
+  color: #fff;
+  font-size: 1.18em;
+  margin: 0 0 0.2em 0;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.info p {
+  color: #b3b3b3;
+  font-weight: 400;
+  margin: 0;
+  font-size: 1em;
 }

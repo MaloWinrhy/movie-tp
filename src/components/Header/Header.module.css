@@ -1,0 +1,71 @@
+.header {
+    width: 100vw;
+    min-height: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,10,0.85);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 1rem 5rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+.logo {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.logo:hover {
+  color: var(--netflix-red, #e50914);
+}
+.link {
+  color: #fff;
+  font-size: 1.1rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.link:hover {
+  color: var(--netflix-red, #e50914);
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: #222;
+  border-radius: 24px;
+  padding: 0.2rem 0.7rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+.searchBar input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem;
+  outline: none;
+  width: 180px;
+}
+.searchBar button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  transition: color 0.2s;
+}
+.searchBar button:hover {
+  color: var(--netflix-red, #e50914);
+}

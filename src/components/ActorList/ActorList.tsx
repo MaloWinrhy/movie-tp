@@ -1,6 +1,8 @@
+
 import { useEffect, useState } from 'react';
 import type { Actor } from '../../types/actor';
 import styles from './ActorList.module.css';
+import { TMDB_MOVIE_CREDITS } from '../../constants/links';
 
 interface Props {
   movieId: string | number;
@@ -13,7 +15,7 @@ const ActorList = ({ movieId }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${import.meta.env.VITE_TMDB_API_KEY}`)
+    fetch(TMDB_MOVIE_CREDITS(movieId))
       .then(res => res.json())
       .then(data => {
         setActors(data.cast.slice(0, 10));

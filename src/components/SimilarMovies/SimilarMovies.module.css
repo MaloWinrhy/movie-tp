@@ -1,0 +1,36 @@
+.similarContainer {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 1.2rem;
+  padding: 1rem 0;
+}
+.similarCard {
+  min-width: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--netflix-card);
+  border-radius: 8px;
+  padding: 0.7rem 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.similarCard:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 24px rgba(229,9,20,0.10);
+}
+.similarImg {
+  width: 70px;
+  height: 105px;
+  border-radius: 6px;
+  object-fit: cover;
+  margin-bottom: 0.5rem;
+  background: #111;
+}
+.similarTitle {
+  font-size: 0.98rem;
+  text-align: center;
+  color: #fff;
+  margin-top: 0.2rem;
+}
