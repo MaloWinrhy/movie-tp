@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.button {
+  background: #eee;
+  color: #222;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.selected {
+  background: #007bff;
+  color: #fff;
+}
